@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>&#x6d77;&#x5916;&#x50b5;Api&#x8cc7;&#x8a0a;</title>
+    <style>
+        /* From extension vscode.github */
+        /*---------------------------------------------------------------------------------------------
+        *  Copyright (c) Microsoft Corporation. All rights reserved.
+        *  Licensed under the MIT License. See License.txt in the project root for license information.
+        *--------------------------------------------------------------------------------------------*/
+
+        .vscode-dark img[src$="\#gh-light-mode-only"],
+        .vscode-light img[src$="\#gh-dark-mode-only"] {
+            display: none;
+        }
+    </style>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, "Ubuntu", "Droid Sans", sans-serif;
+            line-height: 1.6;
+            color: white;
+            background-color: #625d5d;
+            padding: 48px;
+        }
+
+            body > ul > li > a {
+                font-size: 18px;
+            }
+
+            body > ul > li {
+                width: 25%;
+                list-style: decimal;
+            }
+
+        a {
+            color: coral;
+        }
+
+        pre {
+            font-size: 14px;
+            font-weight: bold;
+            font-family: Consolas;
+        }
+
+        div {
+            height: 350px;
+            width: 100%;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        .divBox {
+            height: 350px;
+            display: flex;
+            overflow-y: scroll;
+            border: 2px solid #0094ff;
+            min-height: min-content;
+        }
+
+        .task-list-item {
+            list-style-type: none;
+        }
+
+        .task-list-item-checkbox {
+            margin-left: -20px;
+            vertical-align: middle;
+            pointer-events: none;
+        }
+        .language-bash {
+            color: #fffa2b;
+        }
+        .hljs-keyword,
+        .hljs-literal,
+        .hljs-symbol,
+        .hljs-name {
+            color: #569CD6;
+        }
+
+        .hljs-link {
+            color: #569CD6;
+            text-decoration: underline;
+        }
+
+        .hljs-built_in,
+        .hljs-type {
+            color: #4EC9B0;
+        }
+
+        .hljs-number,
+        .hljs-class {
+            color: #B8D7A3;
+        }
+
+        .hljs-string,
+        .hljs-meta-string {
+            color: #D69D85;
+        }
+
+        .hljs-regexp,
+        .hljs-template-tag {
+            color: #9A5334;
+        }
+
+        .hljs-subst,
+        .hljs-function,
+        .hljs-title,
+        .hljs-params,
+        .hljs-formula {
+            color: #DCDCDC;
+        }
+
+        .hljs-comment,
+        .hljs-quote {
+            color: #57A64A;
+            font-style: italic;
+        }
+
+        .hljs-doctag {
+            color: #608B4E;
+        }
+
+        .hljs-meta,
+        .hljs-meta-keyword,
+        .hljs-tag {
+            color: #9B9B9B;
+        }
+
+        .hljs-variable,
+        .hljs-template-variable {
+            color: #BD63C5;
+        }
+
+        .hljs-attr,
+        .hljs-attribute,
+        .hljs-builtin-name {
+            color: #9CDCFE;
+        }
+
+        .hljs-section {
+            color: gold;
+        }
+
+        .hljs-emphasis {
+            font-style: italic;
+        }
+
+        .hljs-strong {
+            font-weight: bold;
+        }
+
+        /*.hljs-code {
+	font-family:'Monospace';
+}*/
+
+        .hljs-bullet,
+        .hljs-selector-tag,
+        .hljs-selector-id,
+        .hljs-selector-class,
+        .hljs-selector-attr,
+        .hljs-selector-pseudo {
+            color: #D7BA7D;
+        }
+
+        .hljs-addition {
+            background-color: var(--vscode-diffEditor-insertedTextBackground, rgba(155, 185, 85, 0.2));
+            color: rgb(155, 185, 85);
+            display: inline-block;
+            width: 100%;
+        }
+
+        .hljs-deletion {
+            background: var(--vscode-diffEditor-removedTextBackground, rgba(255, 0, 0, 0.2));
+            color: rgb(255, 0, 0);
+            display: inline-block;
+            width: 100%;
+        }
+
+
+        /*
+From https://raw.githubusercontent.com/isagalaev/highlight.js/master/src/styles/vs.css
+*/
+        /*
+
+Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+
+*/
+
+        .vscode-light .hljs-function,
+        .vscode-light .hljs-params,
+        .vscode-light .hljs-number,
+        .vscode-light .hljs-class {
+            color: inherit;
+        }
+
+        .vscode-light .hljs-comment,
+        .vscode-light .hljs-quote,
+        .vscode-light .hljs-number,
+        .vscode-light .hljs-class,
+        .vscode-light .hljs-variable {
+            color: #edf7f0;
+        }
+
+        .vscode-light .hljs-keyword,
+        .vscode-light .hljs-selector-tag,
+        .vscode-light .hljs-name,
+        .vscode-light .hljs-tag {
+            color: #00f;
+        }
+
+        .vscode-light .hljs-built_in,
+        .vscode-light .hljs-builtin-name {
+            color: #007acc;
+        }
+
+        .vscode-light .hljs-string,
+        .vscode-light .hljs-section,
+        .vscode-light .hljs-attribute,
+        .vscode-light .hljs-literal,
+        .vscode-light .hljs-template-tag,
+        .vscode-light .hljs-template-variable,
+        .vscode-light .hljs-type {
+            color: #77bc20;
+        }
+
+        .vscode-light .hljs-selector-attr,
+        .vscode-light .hljs-selector-pseudo,
+        .vscode-light .hljs-meta,
+        .vscode-light .hljs-meta-keyword {
+            color: #2b91af;
+        }
+
+        .vscode-light .hljs-title,
+        .vscode-light .hljs-doctag {
+            color: #808080;
+        }
+
+        .vscode-light .hljs-attr {
+            color: #f00;
+        }
+
+        .vscode-light .hljs-symbol,
+        .vscode-light .hljs-bullet,
+        .vscode-light .hljs-link {
+            color: #00b0e8;
+        }
+
+
+        .vscode-light .hljs-emphasis {
+            font-style: italic;
+        }
+
+        .vscode-light .hljs-strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="vscode-body vscode-light">
+    <!-- 回選單 -->
+    <div id="divTop"
+         style="
+        display: flex;
+        color: antiquewhite;
+        float: right;
+        position: fixed;
+        width: 100px;
+        height: 80px;
+        top: 350px;
+        right: 6px;
+      ">
+        <button style="font-size: 24px; color:red; background-color:aquamarine; "
+                onclick="document.getElementById('top').scrollIntoView();">
+            回選單
+        </button>
+    </div>
+
+    <h1 id="top">海外債Api資訊</h1>
+    <ul style="
+        float: left;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border: 2px solid red;
+      ">
+        <li>
+            <a href="#%E6%B5%B7%E5%A4%96%E5%82%B5api%E8%B3%87%E8%A8%8A">海外債Api資訊</a>
+        </li>
+        <li>
+            <a href="#api-%E5%8F%96%E5%9B%9E%E5%B8%B3%E6%88%B6%E8%B3%87%E8%A8%8A">api-取回帳戶資訊</a>
+        </li>
+        <li>
+            <a href="#api-%E5%8F%96%E5%9B%9E%E8%A4%87%E5%A7%94%E8%A8%97%E7%95%B6%E6%97%A5%E5%8F%83%E8%80%83%E5%8C%AF%E7%8E%87%E6%9F%A5%E8%A9%A2">api-取回複委託當日參考匯率查詢</a>
+        </li>
+        <li>
+            <a href="#api-%E8%A4%87%E5%A7%94%E8%A8%97%E5%9F%BA%E9%87%91">api-複委託基金</a>
+        </li>
+        <li>
+            <a href="#api-%E8%A4%87%E5%A7%94%E8%A8%97%E5%AE%A2%E6%88%B6%E8%B3%87%E8%A8%8A">api-複委託客戶資訊</a>
+        </li>
+        <li>
+            <a href="#api-%E7%BE%8E%E8%82%A1%E7%B2%BE%E9%81%B8">api-美股精選</a>
+        </li>
+        <li>
+            <a href="#api-%E8%A4%87%E5%A7%94%E8%A8%97%E8%B3%BC%E7%89%A9%E8%BB%8A%E6%9F%A5%E8%A9%A2">api-複委託購物車查詢</a>
+        </li>
+        <li>
+            <a href="#api-%E8%AD%89%E5%88%B8api%E7%94%B3%E8%AB%8B%E7%8B%80%E6%85%8B%E6%9F%A5%E8%A9%A2">api-證券API申請狀態查詢</a>
+        </li>
+        <li>
+            <a href="#api-%E6%B5%B7%E5%A4%96%E5%82%B5%E9%A9%97%E8%AD%89">api-海外債驗證</a>
+        </li>
+        <li>
+            <a href="#api-%E6%B5%B7%E5%A4%96%E5%82%B5%E5%B7%B2%E5%AF%A6%E7%8F%BE%E6%90%8D%E7%9B%8A%E6%9F%A5%E8%A9%A2">api-海外債已實現損益查詢</a>
+        </li>
+        <li>
+            <a href="#api-%E6%B5%B7%E5%A4%96%E5%82%B5%E5%B7%B2%E5%AF%A6%E7%8F%BE%E6%90%8D%E7%9B%8A%E6%98%8E%E7%B4%B0%E6%9F%A5%E8%A9%A2">api-海外債已實現損益明細查詢</a>
+        </li>
+        <li>
+            <a href="#api-%E6%B5%B7%E5%A4%96%E5%82%B5%E5%BA%AB%E5%AD%98_%E6%9C%89%E5%AE%9A%E6%9C%9F%E5%AE%9A%E9%A1%8D">api-海外債庫存_有定期定額</a>
+        </li>
+        <li>
+            <a href="#api-%E6%B5%B7%E5%A4%96%E5%82%B5%E5%B0%8D%E5%B8%B3%E5%96%AE%E6%9F%A5%E8%A9%A2">api-海外債對帳單查詢</a>
+        </li>
+        <li>
+            <a href="#api-%E6%B5%B7%E5%A4%96%E5%82%B5%E7%9B%B8%E9%97%9C%E8%B2%BB%E7%94%A8%E6%9F%A5%E8%A9%A2">api-海外債相關費用查詢</a>
+        </li>
+        <li>
+            <a href="#api-%E6%B5%B7%E5%A4%96%E5%82%B5%E5%88%B8%E5%A7%94%E8%A8%97%E6%9F%A5%E8%A9%A2">api-海外債券委託查詢</a>
+        </li>
+        <li>
+            <a href="#api-%E6%B5%B7%E5%A4%96%E5%82%B5%E5%B8%B3%E5%8B%99%E9%85%8D%E6%81%AF%E6%98%8E%E7%B4%B0">api-海外債帳務配息明細</a>
+        </li>
+    </ul>
+    <hr />
+
+
+    <h1 id="api-取回帳戶資訊">api-取回帳戶資訊</h1>
+
+    <div class="divBox">
+        <div class="thing_row"
+             style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/Auth/GetUserIdAccountsData
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;IDs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;pwd&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{pwd}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ApplyType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;39&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Orign&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;WithOSB&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;P100836638&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Accounts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;STK&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-string">&quot;9203-0030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-string">&quot;9231-0040458&quot;</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;FUT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-string">&quot;000-0009375&quot;</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;WM&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-取回複委託當日參考匯率查詢">api-取回複委託當日參考匯率查詢</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/Currency/Query
+</code></pre>
+        </div>
+
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;UserId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Currency&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;USD&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;QueryTime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023/06/15 12:57:26&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;rtnCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;msg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ERR_CODE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ERR_MSG&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;datas&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;CURRENCY&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;USD&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;EX_RATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">31.57</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;datalist&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orderList&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-複委託基金">api-複委託基金</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/USStock/KGItwStoOltsAPIPosition
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountNo&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;20009008904&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;UserId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;PROD_TYPE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUND&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;QueryTime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023/06/15 12:58:06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;rtnCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;msg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ERR_CODE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ERR_MSG&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;null&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;datas&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;datalist&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orderList&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-複委託客戶資訊">api-複委託客戶資訊</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/USStock/KGItwPriOltsAPICustomer
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountNo&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;20009008904&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;UserId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;QueryTime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023/06/15 12:59:18&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;rtnCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;msg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ERR_CODE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ERR_MSG&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;null&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;datas&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;CUSTOMER_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20009008904&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_NAME&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;測-X&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ADDRESS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;北市中山區明水路700號&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AUTH_NAME&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BRANCH&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;OTHR&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SALES&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;nXXＯ&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;G_SALES&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;公XX&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BANK_NAME&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N/A&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BANK_ACCOUNT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N/A&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BANK_ACCOUNT2&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N/A&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BANK_NAME_TWD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N/A&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BANK_ACCOUNT_TWD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N/A&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OPENDATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2019/01/02&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ESTATEMENT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;E_MAIL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;test@kgi.com.tw&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_TYPE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;W8_FORM&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ETRADE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ETRADE_PWDNO&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">9999999999</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ETRADE_APPLYDATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022/07/08&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ETRADE_CANCELDATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1900/01/01&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ETRADE_PWDDATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1900/01/01&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BRANCH_CODE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;P100836638&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;W8W9_DATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2019/01/03&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;W9&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;RISK_LEVEL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;RISK_LEVEL_DATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1900/01/01&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;PI_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;HYDEBTFUND_RISK&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;HYDEBTFUND_RISK_DATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1900/01/01&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACCT_TYPE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;DSU&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;PRE_ESTATEMENT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BANK_ACC_SIN&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BANK_ID_SIN&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SINGLE_APPLY&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SINGLE_APPLY_DATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1900/01/01&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;KGI_ACCOUNT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;DOCUMENT_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SIGNING_DATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;DOCUMENT_TYPE1_DATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;R_EQUITY_AGREEMENT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;R_EQUITY_AGREEMENT_DATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;PD_TRANSFER_AGREEMENT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;PD_SIGNING_DATE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;QI_NATIONALITY&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SETTLE_TWD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;datalist&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orderList&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-美股精選">api-美股精選</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: 
+URL: {{apiUrl}}/USStock/QueryRegularStock
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json">無
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;QueryTime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023/06/15 12:59:52&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;rtnCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;msg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ERR_CODE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ERR_MSG&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;datas&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;datalist&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;market&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;US&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;exchange&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;NASDAQ&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;kind&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;10000&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;symbol&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAL&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;symbolName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;美國航空集團&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ystPrice&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">17.28</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;priceDiff&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.83</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;updateDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022/02/07&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;typeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;工業類股&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;reuterCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAL.O&quot;</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;market&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;US&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;exchange&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;NASDAQ&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;kind&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;10110&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;symbol&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAPL&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;symbolName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;蘋果公司&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ystPrice&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">162.74</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;priceDiff&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2.67</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;updateDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022/02/24&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;typeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;科技類股&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;reuterCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAPL.O&quot;</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-comment">// 略...</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orderList&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-複委託購物車查詢">api-複委託購物車查詢</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/USStock/KGItwInfOltsFavoritesRSPList
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;UserId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20009008904&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            ""
+        </div>
+    </div>
+
+    <h1 id="api-證券api申請狀態查詢">api-證券API申請狀態查詢</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/AgreementSign/SignStatus
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;UserId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Accounts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;s92030030108,s92310040458&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;ErrCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ErrMsg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Header&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;ExecStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StatusCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Body&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;DataList&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-海外債驗證">api-海外債驗證</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/Auth/Verify
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;idaccounts:&quot;</span>
+            <span class="hljs-string">"[{'ID':'{{ID}}','Accounts': {{Accounts}}}]",</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;applytype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;78&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orign&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OrignOlts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span>
+<span class="hljs-punctuation">}</span>
+
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre style=""><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;postData&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;applytype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;78&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ErrorCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;idno&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;P100836638&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orign&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orignolts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;oriServerIP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;10.27.14.47&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orgclient&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;127.0.0.1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;orgserver&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;srctype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;trust_seq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;account&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;idaccounts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;[{&#x27;ID&#x27;:&#x27;P100836638&#x27;,</span>
+            <span class="hljs-attr" style="padding-left: 24px;">Accounts&#x27;: {&#x27;STK&#x27;:[&#x27;9203-0030108&#x27;,&#x27;9231-0040458&#x27;],  </span>
+            <span class="hljs-attr">&#x27;FUT&#x27;:[&#x27;000-0009375&#x27;],&#x27;WM&#x27;:[]}}]&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;queryaccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Stock&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;bhno&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;cseq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;adflag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;signtype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;uitype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;stock&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;mtflag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;dirpack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;syncert&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;apver&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;os&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;browser&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;verno&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;outeropen&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;userData&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;P100836638&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;IDNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;P100836638&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID_PWD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;PWD_REMIND&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountGroups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;FUT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;測試0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000-0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0000009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;凱基證總&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;B03&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;E&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OSB&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;STK&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203-0030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;92030030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;總公司分公司&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;a&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;正常&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;正常&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-02-17T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;24   &quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;測試００４０４５&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231-0040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;92310040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;員林分公司&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;006  &quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;WM&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OneAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;測試0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000-0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0000009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;凱基證總&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;B03&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;E&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Accounts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203-0030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;92030030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;總公司分公司&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;a&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;正常&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;正常&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-02-17T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;24   &quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;測試００４０４５&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231-0040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;92310040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;員林分公司&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;006  &quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;測試0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000-0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0000009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;凱基證總&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;B03&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;E&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockAccounts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203-0030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;92030030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;總公司分公司&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9203&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;a&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;正常&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;正常&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-02-17T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;24   &quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;測試００４０４５&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231-0040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;92310040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STK&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;員林分公司&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0040458&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9231&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;006  &quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;FuturesAccounts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;AccountName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;測試0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000-0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountValueWithoutDash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0000009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BusinessTypeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FUT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;BranchName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;凱基證總&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CSeq&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0009375&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OTypeFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;Authorized&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountClass&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountIBCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;B03&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBegin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountCreditBranchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ACConsentSignStatusEx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;E&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountSignEURStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountEURCloseYMD&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AllowStockLoan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;N&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsStockLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;StockLoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AC_SBL_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IsLoanAccount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatus&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanStatusDesc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;未開戶&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanBeginDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;LoanCloseDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SalesNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ProjectStksStr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;GW_STATUS&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Y&quot;</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OSBAccounts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;WMAccounts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ExchangeType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MD5PKey&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OrderPushOpen&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MatchPushOpen&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;AccountConfig&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CAExpiredDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0001-01-01T00:00:00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CAFlag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SrcCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CAType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;OpenedBusinessTypes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;FUT&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;期貨&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;STK&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;證券&quot;</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;trustUrl&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/offshoreBond/find&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-海外債已實現損益查詢">api-海外債已實現損益查詢</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/OffShoreBond/KGItwOLTSRealizedProfit
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;SYSTEM_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{IP}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;92030030108&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MARKET&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;US&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SYMBOL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAPL.O&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATES&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATEE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SORT_TYPE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;PROD_TYPE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;DEBT&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-comment">// 待確認</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-海外債已實現損益明細查詢">api-海外債已實現損益明細查詢</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/OffShoreBond/KGItwOLTSRealizedProfitDetail
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;SYSTEM_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{IP}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20001365441&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MARKET&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;US&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SYMBOL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAPL.O&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATES&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATEE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;RANSOM_SEQNO&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;123456&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-comment">// 待確認</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-海外債庫存_有定期定額">api-海外債庫存_有定期定額</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/OffShoreBond/KGItwOLTSAPIPosition
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;SYSTEM_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{IP}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20001365441&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;{{ID}}&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MARKET&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SETTLE_CURRENCY&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_KIND&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;4&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-comment">// 待確認</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-海外債對帳單查詢">api-海外債對帳單查詢</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/OffShoreBond/KGItwOLTSBillQuerySend
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;SYSTEM_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;127.0.0.1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20001365441&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A123456789&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MARKET&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;US&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SYMBOL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAPL.O&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATES&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATEE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;QUERY_TYPE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;4&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-comment">// 待確認</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-海外債相關費用查詢">api-海外債相關費用查詢</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/OffShoreBond/KGItwOLTSStockFEESend
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;SYSTEM_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;127.0.0.1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20001365441&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A123456789&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MARKET&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;US&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SYMBOL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAPL.O&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_TYPE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;S&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;PRICE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;QTY&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">200</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SETTLE_CURRENCY&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;MUT&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-comment">// 待確認</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-海外債券委託查詢">api-海外債券委託查詢</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/OffShoreBond/KGItwOLTSDebtOrderQuerySend
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;SYSTEM_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;127.0.0.1&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20001365441&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A123456789&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MARKET&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;US&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SYMBOL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAPL.O&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATES&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATEE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_KIND&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;4&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-comment">// 待確認</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+
+    <h1 id="api-海外債帳務配息明細">api-海外債帳務配息明細</h1>
+
+    <div class="divBox">
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Endpoint:</strong></em>
+            </p>
+            <pre><code class="language-bash">Method: POST
+Type: RAW
+URL: {{apiUrl}}/OffShoreBond/KGItwOLTSEntitlementQuerySend
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Body:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;SYSTEM_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H5&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;IP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;00.00.00.00&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;CUSTOMER_ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20001365441&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;ID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A123456789&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;MARKET&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;US&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;SYMBOL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AAPL.O&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATES&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;TRADE_DATEE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2021/10/06&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;QUERY_TYPE&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;4&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+        <div style="width: 40%; border-right: 1px solid; margin-right: 4px">
+            <p>
+                <em><strong>Response:</strong></em>
+            </p>
+            <pre><code class="language-json"><span class="hljs-punctuation">{</span>
+            <span class="hljs-comment">// 待確認</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </div>
+    </div>
+</body>
+</html>
